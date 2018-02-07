@@ -1,245 +1,156 @@
-
-
 <!DOCTYPE html>
-<html lang="null">
-<head prefix="og: http://ogp.me/ns#">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-    <meta name="description" content="一个会一点点H5的菜鸟iOS开发">
-    <title>Axios 封装 | qianli&#39;s blog</title>
-
-    <!-- Open Graph -->
-    <meta name="description" content="&amp;#x516C;&amp;#x53F8;&amp;#x9879;&amp;#x76EE;&amp;#x8981;&amp;#x6C42;&amp;#x7528;H5&amp;#x5199; &amp;#x4F5C;&amp;#x4E3A;&amp;#x4E00;&amp;#x4E2A;iOS&amp;#x83DC;&amp;#x9E1F;&amp;#x641E;&amp;#x8D77;&amp;#x6765;&amp;#x554A;&amp;#xFF0C;&amp;#x9996;&amp;#x5148;&amp;#x662F;&amp;#x642D;&amp;#x5EFA;&amp;#">
-<meta name="keywords">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Axios 封装">
-<meta property="og:url" content="http://yoursite.com/2017/04/17/Axios封装/index.html">
-<meta property="og:site_name" content="qianli's blog">
-<meta property="og:description" content="&amp;#x516C;&amp;#x53F8;&amp;#x9879;&amp;#x76EE;&amp;#x8981;&amp;#x6C42;&amp;#x7528;H5&amp;#x5199; &amp;#x4F5C;&amp;#x4E3A;&amp;#x4E00;&amp;#x4E2A;iOS&amp;#x83DC;&amp;#x9E1F;&amp;#x641E;&amp;#x8D77;&amp;#x6765;&amp;#x554A;&amp;#xFF0C;&amp;#x9996;&amp;#x5148;&amp;#x662F;&amp;#x642D;&amp;#x5EFA;&amp;#">
-<meta property="og:updated_time" content="2017-06-29T09:12:49.000Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Axios 封装">
-<meta name="twitter:description" content="&amp;#x516C;&amp;#x53F8;&amp;#x9879;&amp;#x76EE;&amp;#x8981;&amp;#x6C42;&amp;#x7528;H5&amp;#x5199; &amp;#x4F5C;&amp;#x4E3A;&amp;#x4E00;&amp;#x4E2A;iOS&amp;#x83DC;&amp;#x9E1F;&amp;#x641E;&amp;#x8D77;&amp;#x6765;&amp;#x554A;&amp;#xFF0C;&amp;#x9996;&amp;#x5148;&amp;#x662F;&amp;#x642D;&amp;#x5EFA;&amp;#">
-
-    <script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "Person",
-  "email": "mailto:undefined",
-  "image": "undefined",
-  "name": "qianli",
-  "url": "http://yoursite.com"
-}
-</script>
-    <script>
-    var algoliaEnabled = false;
+<html lang="zh-CN">
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="description" content="一个会一点点H5的菜鸟iOS开发">
+  <meta name="keywords" content="undefined">
+  
+    <link rel="icon" href="">
+  
     
-</script>
-
-    
-
-    
-    
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-    
-    
-    
-        <!-- stylesheets list from config.yml -->
-        
-        <link rel="stylesheet" href="/css/aloha.css">
-        
-        <link rel="stylesheet" href="//cdn.bootcss.com/semantic-ui/2.2.4/semantic.min.css">
-        
-        <link rel="stylesheet" href="//cdn.bootcss.com/magnific-popup.js/1.1.0/magnific-popup.min.css">
-        
-    
-
+  <title>Axios 封装 | qianli&#39;s blog</title>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.20/jquery.fancybox.min.css" />
 </head>
-<body id="body" style="margin-bottom: 0;" class="pushable">
 
-    <div class="ui top fixed menu">
-        <a class="item" id="menu-icon"><i class="sidebar icon"></i></a>
-    </div>
-
-    <div id="menu-sidebar" class="ui left vertical sidebar menu">
-
-    <div id="sidebar-top">
-        <div class="content">
-            <h3>qianli&#39;s blog</h3>
-        </div>
-    </div>
-    <div class="ui container sidebar-card">
-    <div class="ui people shape content">
-        <div class="active side">
-            <div class="ui card">
-                <div class="image">
-                    <img class="ui medium bordered image" src="/images/avatar.jpg">
-                </div>
-                <div class="content">
-                    <a class="header">qianli</a>
-                    
-                </div>
-                <div class="extra content">
-                    <div class="ui list">
-                        
-                        
-                    </div>
-
-                </div>
-                <div class="extra content">
-                    <div class="ui list">
-                        
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-</div>
-
-    
-    
-
-    
-
-    
-    <a href="/index.html" class="item" >
-        <i class="home icon"></i>
-        HOME
+<body>
+  <header>
+  <div class="header-container">
+    <a class='logo' href="/">
+      <span>qianli's blog</span>
     </a>
+    <ul class="right-header">
+      
+        <li class="nav-item">
+          
+            <a href="/" class="item-link">首页</a>
+          
+        </li>
+      
+        <li class="nav-item">
+          
+            <a href="/about" class="item-link">关于</a>
+          
+        </li>
+      
+        <li class="nav-item">
+          
+            <a href="/archives" class="item-link">归档</a>
+          
+        </li>
+      
+        <li class="nav-item">
+          
+            <a href="/tags" class="item-link">标签</a>
+          
+        </li>
+      
+    </ul>
+  </div>
+</header>
 
+  <main id='post'>
+  <div class="content">
+    <article>
+        <section class="content markdown-body">
+          <h1>Axios 封装</h1>
+          <div class='post-meta'>
+            <i class="fa fa-calendar" aria-hidden="true"></i> <time>2017年04月17日</time>
+            
+            
+          </div>
+          <p>公司项目要求用H5写 作为一个iOS菜鸟搞起来啊，首先是搭建项目框架，项目框架直接用vue-cli搭建好，接下来是网络请求的封装，之前写过一个小项目网络请求用的vue-resource 后来看到尤雨溪大神推荐用Axios 再网上看了很多网络请求的封装，都不是很满意，最后总结了一下封装了一个网络请求</p>
+<p>首先创建一个网络请求的Js文件</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 引入axios</span></div><div class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">'axios'</span></div><div class="line"><span class="comment">// 这里是我在token过期的情况 调用原生的登录方法</span></div><div class="line"><span class="keyword">var</span> jsbridge = <span class="built_in">require</span>(<span class="string">'../../static/js/jsbridge.js'</span>)</div><div class="line"><span class="keyword">var</span> Rxports = &#123;</div><div class="line">  <span class="attr">ajax</span>: <span class="function"><span class="keyword">function</span> (<span class="params">opt</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> opts = opt || &#123;&#125;</div><div class="line">    <span class="keyword">if</span> (!opts.url) &#123;</div><div class="line">      <span class="keyword">return</span> <span class="literal">false</span></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">var</span> token = sessionStorage.getItem(<span class="string">'token'</span>)</div><div class="line">    axios(&#123;</div><div class="line">      <span class="comment">// 请求方式</span></div><div class="line">      method: opts.type || <span class="string">'post'</span>,</div><div class="line">      <span class="comment">// 请求url</span></div><div class="line">      url: opts.url,</div><div class="line">      <span class="comment">// 请求参数</span></div><div class="line">      params: opts.data || &#123;&#125;,</div><div class="line">      <span class="comment">// 请求头</span></div><div class="line">      headers: opts.headers || &#123;</div><div class="line">        <span class="string">'Content-Type'</span>: <span class="string">'application/json'</span>,</div><div class="line">        <span class="string">'X-Requested-With'</span>: <span class="string">'XMLHttpRequest'</span>,</div><div class="line">        <span class="string">'source'</span>: <span class="string">'ios'</span>,</div><div class="line">        <span class="string">'token'</span>: token</div><div class="line">      &#125;,</div><div class="line">      <span class="comment">// 请求超时时间</span></div><div class="line">      timeout: opts.time || <span class="number">10</span> * <span class="number">1000</span>,</div><div class="line">      <span class="attr">responseType</span>: opts.dataType || <span class="string">'json'</span></div><div class="line">    &#125;).then(<span class="function"><span class="keyword">function</span> (<span class="params">res</span>) </span>&#123;</div><div class="line">      <span class="comment">// 下面的是根据业务需求做的处理</span></div><div class="line">      <span class="keyword">if</span> (res.data.code === <span class="string">'ACK'</span>) &#123;</div><div class="line">        <span class="keyword">if</span> (opts.success) &#123;</div><div class="line">          opts.success(res.data.data, res)</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">          opts.error(<span class="string">'网络请求错误，请稍后再试'</span>, res)</div><div class="line">        &#125;</div><div class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (res.data.code === <span class="string">'BUSINESS_ERROR'</span>) &#123;</div><div class="line">        <span class="keyword">if</span> (opts.error) &#123;</div><div class="line">          opts.error(res.data.message, res)</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">          opts.error(<span class="string">'网络请求错误，请稍后再试'</span>, res)</div><div class="line">        &#125;</div><div class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (res.data.code === <span class="string">'NACK'</span>) &#123;</div><div class="line">        <span class="keyword">if</span> (opts.error) &#123;</div><div class="line">          opts.error(res.data.message, res)</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">          opts.error(<span class="string">'网络请求错误，请稍后再试'</span>, res)</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line">    &#125;).catch(<span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</div><div class="line">      <span class="comment">// token过期的情况调用原生方法</span></div><div class="line">      <span class="keyword">if</span> (error.response.data.code === <span class="string">'UNAUTHORIZED'</span>) &#123;</div><div class="line">        jsbridge.setupWebViewJavascriptBridge(<span class="function"><span class="keyword">function</span> (<span class="params">bridge</span>) </span>&#123;</div><div class="line">          bridge.callHandler(<span class="string">'goLogin'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>&#123;</div><div class="line">          &#125;)</div><div class="line">        &#125;)</div><div class="line">        sessionStorage.removeItem(<span class="string">'token'</span>)</div><div class="line">      &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="keyword">if</span> (opts.error) &#123;</div><div class="line">          opts.error(error, error)</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">          opts.error(<span class="string">'网络请求错误，请稍后再试'</span>, error)</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line">    &#125;)</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> Rxports</div></pre></td></tr></table></figure>
+<p>最后使用方法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> api <span class="keyword">from</span> <span class="string">'../fetch/api'</span></div><div class="line">api.ajax(&#123;</div><div class="line">  <span class="string">'type'</span>: <span class="string">'post'</span>,</div><div class="line">   <span class="string">'url'</span>: <span class="string">''</span>, <span class="comment">// 请求url</span></div><div class="line">   <span class="string">'params'</span>: &#123;</div><div class="line">     <span class="comment">// 请求参数</span></div><div class="line">    &#125;,</div><div class="line">    <span class="string">'success'</span>: <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</div><div class="line">     <span class="comment">// 请求成功处理</span></div><div class="line">    &#125;,</div><div class="line">    <span class="string">'error'</span>: <span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</div><div class="line">     <span class="comment">// 错误原因提示</span></div><div class="line">      Toast(error)</div><div class="line">    &#125;</div><div class="line"> &#125;)</div></pre></td></tr></table></figure>
+<p>这么看起来，也是挺简单的</p>
+
+        </section>
+    </article>
     
-
-    
-</div>
-
-    <div class="pusher body-content">
-        <div id="content" class="ui main container">
-            <!--<div class="ui one column grid">-->
-                <!--<div class="column">-->
-                    <!--<div class="ui main container">-->
-                        <div id="post-Axios封装" class="ui main container article-type-post">
-
-    
-
-    <div class="ui divided grid">
-
-        <div class="two column row" id="article-content">
-
-            <div class="thirteen wide computer thirteen wide tablet sixteen wide mobile column">
-                
-
-<h1 class="ui header">
-    
-    Axios 封装
-</h1>
-
-
-
-                <div class="article-inner">
-
-                    <div class="article-entry" itemprop="articleBody">
-                        
-                        <p>&#x516C;&#x53F8;&#x9879;&#x76EE;&#x8981;&#x6C42;&#x7528;H5&#x5199; &#x4F5C;&#x4E3A;&#x4E00;&#x4E2A;iOS&#x83DC;&#x9E1F;&#x641E;&#x8D77;&#x6765;&#x554A;&#xFF0C;&#x9996;&#x5148;&#x662F;&#x642D;&#x5EFA;&#x9879;&#x76EE;&#x6846;&#x67B6;&#xFF0C;&#x9879;&#x76EE;&#x6846;&#x67B6;&#x76F4;&#x63A5;&#x7528;vue-cli&#x642D;&#x5EFA;&#x597D;&#xFF0C;&#x63A5;&#x4E0B;&#x6765;&#x662F;&#x7F51;&#x7EDC;&#x8BF7;&#x6C42;&#x7684;&#x5C01;&#x88C5;&#xFF0C;&#x4E4B;&#x524D;&#x5199;&#x8FC7;&#x4E00;&#x4E2A;&#x5C0F;&#x9879;&#x76EE;&#x7F51;&#x7EDC;&#x8BF7;&#x6C42;&#x7528;&#x7684;vue-resource &#x540E;&#x6765;&#x770B;&#x5230;&#x5C24;&#x96E8;&#x6EAA;&#x5927;&#x795E;&#x63A8;&#x8350;&#x7528;Axios &#x518D;&#x7F51;&#x4E0A;&#x770B;&#x4E86;&#x5F88;&#x591A;&#x7F51;&#x7EDC;&#x8BF7;&#x6C42;&#x7684;&#x5C01;&#x88C5;&#xFF0C;&#x90FD;&#x4E0D;&#x662F;&#x5F88;&#x6EE1;&#x610F;&#xFF0C;&#x6700;&#x540E;&#x603B;&#x7ED3;&#x4E86;&#x4E00;&#x4E0B;&#x5C01;&#x88C5;&#x4E86;&#x4E00;&#x4E2A;&#x7F51;&#x7EDC;&#x8BF7;&#x6C42;</p>
-<p>&#x9996;&#x5148;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x7F51;&#x7EDC;&#x8BF7;&#x6C42;&#x7684;Js&#x6587;&#x4EF6;</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// &#x5F15;&#x5165;axios</span></div><div class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">&apos;axios&apos;</span></div><div class="line"><span class="comment">// &#x8FD9;&#x91CC;&#x662F;&#x6211;&#x5728;token&#x8FC7;&#x671F;&#x7684;&#x60C5;&#x51B5; &#x8C03;&#x7528;&#x539F;&#x751F;&#x7684;&#x767B;&#x5F55;&#x65B9;&#x6CD5;</span></div><div class="line"><span class="keyword">var</span> jsbridge = <span class="built_in">require</span>(<span class="string">&apos;../../static/js/jsbridge.js&apos;</span>)</div><div class="line"><span class="keyword">var</span> Rxports = {</div><div class="line">  <span class="attr">ajax</span>: <span class="function"><span class="keyword">function</span> (<span class="params">opt</span>) </span>{</div><div class="line">    <span class="keyword">var</span> opts = opt || {}</div><div class="line">    <span class="keyword">if</span> (!opts.url) {</div><div class="line">      <span class="keyword">return</span> <span class="literal">false</span></div><div class="line">    }</div><div class="line">    <span class="keyword">var</span> token = sessionStorage.getItem(<span class="string">&apos;token&apos;</span>)</div><div class="line">    axios({</div><div class="line">      <span class="comment">// &#x8BF7;&#x6C42;&#x65B9;&#x5F0F;</span></div><div class="line">      method: opts.type || <span class="string">&apos;post&apos;</span>,</div><div class="line">      <span class="comment">// &#x8BF7;&#x6C42;url</span></div><div class="line">      url: opts.url,</div><div class="line">      <span class="comment">// &#x8BF7;&#x6C42;&#x53C2;&#x6570;</span></div><div class="line">      params: opts.data || {},</div><div class="line">      <span class="comment">// &#x8BF7;&#x6C42;&#x5934;</span></div><div class="line">      headers: opts.headers || {</div><div class="line">        <span class="string">&apos;Content-Type&apos;</span>: <span class="string">&apos;application/json&apos;</span>,</div><div class="line">        <span class="string">&apos;X-Requested-With&apos;</span>: <span class="string">&apos;XMLHttpRequest&apos;</span>,</div><div class="line">        <span class="string">&apos;source&apos;</span>: <span class="string">&apos;ios&apos;</span>,</div><div class="line">        <span class="string">&apos;token&apos;</span>: token</div><div class="line">      },</div><div class="line">      <span class="comment">// &#x8BF7;&#x6C42;&#x8D85;&#x65F6;&#x65F6;&#x95F4;</span></div><div class="line">      timeout: opts.time || <span class="number">10</span> * <span class="number">1000</span>,</div><div class="line">      <span class="attr">responseType</span>: opts.dataType || <span class="string">&apos;json&apos;</span></div><div class="line">    }).then(<span class="function"><span class="keyword">function</span> (<span class="params">res</span>) </span>{</div><div class="line">      <span class="comment">// &#x4E0B;&#x9762;&#x7684;&#x662F;&#x6839;&#x636E;&#x4E1A;&#x52A1;&#x9700;&#x6C42;&#x505A;&#x7684;&#x5904;&#x7406;</span></div><div class="line">      <span class="keyword">if</span> (res.data.code === <span class="string">&apos;ACK&apos;</span>) {</div><div class="line">        <span class="keyword">if</span> (opts.success) {</div><div class="line">          opts.success(res.data.data, res)</div><div class="line">        } <span class="keyword">else</span> {</div><div class="line">          opts.error(<span class="string">&apos;&#x7F51;&#x7EDC;&#x8BF7;&#x6C42;&#x9519;&#x8BEF;&#xFF0C;&#x8BF7;&#x7A0D;&#x540E;&#x518D;&#x8BD5;&apos;</span>, res)</div><div class="line">        }</div><div class="line">      } <span class="keyword">else</span> <span class="keyword">if</span> (res.data.code === <span class="string">&apos;BUSINESS_ERROR&apos;</span>) {</div><div class="line">        <span class="keyword">if</span> (opts.error) {</div><div class="line">          opts.error(res.data.message, res)</div><div class="line">        } <span class="keyword">else</span> {</div><div class="line">          opts.error(<span class="string">&apos;&#x7F51;&#x7EDC;&#x8BF7;&#x6C42;&#x9519;&#x8BEF;&#xFF0C;&#x8BF7;&#x7A0D;&#x540E;&#x518D;&#x8BD5;&apos;</span>, res)</div><div class="line">        }</div><div class="line">      } <span class="keyword">else</span> <span class="keyword">if</span> (res.data.code === <span class="string">&apos;NACK&apos;</span>) {</div><div class="line">        <span class="keyword">if</span> (opts.error) {</div><div class="line">          opts.error(res.data.message, res)</div><div class="line">        } <span class="keyword">else</span> {</div><div class="line">          opts.error(<span class="string">&apos;&#x7F51;&#x7EDC;&#x8BF7;&#x6C42;&#x9519;&#x8BEF;&#xFF0C;&#x8BF7;&#x7A0D;&#x540E;&#x518D;&#x8BD5;&apos;</span>, res)</div><div class="line">        }</div><div class="line">      }</div><div class="line">    }).catch(<span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>{</div><div class="line">      <span class="comment">// token&#x8FC7;&#x671F;&#x7684;&#x60C5;&#x51B5;&#x8C03;&#x7528;&#x539F;&#x751F;&#x65B9;&#x6CD5;</span></div><div class="line">      <span class="keyword">if</span> (error.response.data.code === <span class="string">&apos;UNAUTHORIZED&apos;</span>) {</div><div class="line">        jsbridge.setupWebViewJavascriptBridge(<span class="function"><span class="keyword">function</span> (<span class="params">bridge</span>) </span>{</div><div class="line">          bridge.callHandler(<span class="string">&apos;goLogin&apos;</span>, <span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>{</div><div class="line">          })</div><div class="line">        })</div><div class="line">        sessionStorage.removeItem(<span class="string">&apos;token&apos;</span>)</div><div class="line">      } <span class="keyword">else</span> {</div><div class="line">        <span class="keyword">if</span> (opts.error) {</div><div class="line">          opts.error(error, error)</div><div class="line">        } <span class="keyword">else</span> {</div><div class="line">          opts.error(<span class="string">&apos;&#x7F51;&#x7EDC;&#x8BF7;&#x6C42;&#x9519;&#x8BEF;&#xFF0C;&#x8BF7;&#x7A0D;&#x540E;&#x518D;&#x8BD5;&apos;</span>, error)</div><div class="line">        }</div><div class="line">      }</div><div class="line">    })</div><div class="line">  }</div><div class="line">}</div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> Rxports</div></pre></td></tr></table></figure>
-<p>&#x6700;&#x540E;&#x4F7F;&#x7528;&#x65B9;&#x6CD5;</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> api <span class="keyword">from</span> <span class="string">&apos;../fetch/api&apos;</span></div><div class="line">api.ajax({</div><div class="line">  <span class="string">&apos;type&apos;</span>: <span class="string">&apos;post&apos;</span>,</div><div class="line">   <span class="string">&apos;url&apos;</span>: <span class="string">&apos;&apos;</span>, <span class="comment">// &#x8BF7;&#x6C42;url</span></div><div class="line">   <span class="string">&apos;params&apos;</span>: {</div><div class="line">     <span class="comment">// &#x8BF7;&#x6C42;&#x53C2;&#x6570;</span></div><div class="line">    },</div><div class="line">    <span class="string">&apos;success&apos;</span>: <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>{</div><div class="line">     <span class="comment">// &#x8BF7;&#x6C42;&#x6210;&#x529F;&#x5904;&#x7406;</span></div><div class="line">    },</div><div class="line">    <span class="string">&apos;error&apos;</span>: <span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>{</div><div class="line">     <span class="comment">// &#x9519;&#x8BEF;&#x539F;&#x56E0;&#x63D0;&#x793A;</span></div><div class="line">      Toast(error)</div><div class="line">    }</div><div class="line"> })</div></pre></td></tr></table></figure>
-<p>&#x8FD9;&#x4E48;&#x770B;&#x8D77;&#x6765;&#xFF0C;&#x4E5F;&#x662F;&#x633A;&#x7B80;&#x5355;&#x7684;</p>
-
-                        
-                    </div>
-
-                    
-                    
-                    
-
-                    <div class="description post-description">
-    <span class="post-description-item">
-        <time datetime="2017-04-17T01:57:38.000Z" itemprop="datePublished">2017-04-17</time>
-
-    </span>
-    <span class="post-description-item">
         
-    </span>
-</div>
+  </div>
+  <aside>
+    
+  </aside>
+</main>
 
-                </div>
-                
-                <div id="pagination" class="nav-web ui text container pagination">
 
-    <div class="ui stackable two column divided grid container">
-        <div class="row">
-            <div class="column nav-left">
-                
 
-                <a class="ui tiny button disabled"><i class="angle left icon"></i>Previous</a>
-
-                
-            </div>
-            <div class="column nav-right">
-                
-
-                <a class="ui tiny button disabled">Next<i class="angle right icon"></i></a>
-
-                
-            </div>
-        </div>
+  <footer>
+  <div class="copyright">
+    <div>
+      &copy; 2018 | Powered by <a href="https://hexo.io" target="_blank">Hexo</a>&nbsp
     </div>
-
-</div>
-                
-            </div>
-
-            
-            <div class="three wide computer three wide tablet column">
-
-                <div class="ui sticky article-toc" id="article-toc">
-                    <!-- toc -->
-                    
-                </div>
-
-            </div>
-            
-
-        </div>
+    <div>
+      Theme by <a href="https://github.com/lewis-geek/hexo-theme-Aath" target="_blank">Aath</a>
     </div>
-</div>
+  </div>
+</footer>
 
 
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-        </div>
-        <div class="ui vertical footer segment">
-    <div class="ui center aligned container">
-        <div class="ui inverted section divider"></div>
-        &copy; 2018 <a href="/">qianli</a>,
-        Powered by <a href="https://github.com/henryhuang/hexo-theme-aloha" target="_blank">Aloha</a> and <a
-                href="http://hexo.io/" target="_blank">Hexo</a>.
-    </div>
-</div>
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="/lib/in-view.min.js"></script>
+<script src="/lib/lodash.min.js"></script>
+<script>
+  var isDown = true
+  var oldY = 0
+  inView.offset(50)
 
-    </div>
+  document.body.addEventListener('touchstart', function(){});
+  
+  window.addEventListener('scroll', _.throttle(e => {
+    var currentY = window.scrollY
+    if((oldY - currentY) < 0) {
+      isDown = true
+    } else {
+      isDown = false
+    }
+    oldY = currentY
+  }, 250))
 
+  $("article img").each(function() {
+      var strA = "<a data-fancybox='gallery' href='" + this.src + "'></a>";
+      $(this).wrapAll(strA);
+  });
 
+  $('.toc-link').each(function() {
+      var href = $(this).attr("href");
+      
+      inView(href).on('exit', () => {
+        if (isDown) {
+          handleActive(href)
+        }
+      })
 
+      inView(href).on('enter', () => {
+        if (!isDown) {
+          handleActive(href)
+        }
+      })
 
-<!-- scripts list from theme config.yml -->
+      this.onclick = function(e) {
+        var pos = $(href).offset().top - 10;
+        $("html,body").animate({scrollTop: pos}, 300);
+        setTimeout(() => {
+          handleActive(href)
+        }, 350)
+        return false
+      }
+  })
 
-<script src="//cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
-
-<script src="//cdn.bootcss.com/semantic-ui/2.2.4/semantic.min.js"></script>
-
-<script src="//cdn.bootcss.com/algoliasearch/3.18.1/algoliasearch.min.js"></script>
-
-<script src="//cdn.bootcss.com/algoliasearch-helper-js/2.13.0/algoliasearch.helper.min.js"></script>
-
-<script src="/js/semantic-ui-algolia.js"></script>
-
-<script src="/js/aloha-events.js"></script>
-
+  function handleActive(href) {
+    document.querySelectorAll('.toc-link').forEach(elm => {
+      elm.classList.remove('active')
+    })
+    document.querySelector(".toc [href='"+ href +"']").classList.add('active')
+  }
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.20/jquery.fancybox.min.js"></script>
 
 
 </body>
