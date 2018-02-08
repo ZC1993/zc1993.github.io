@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="description" content="一个会一点点H5的菜鸟iOS开发">
+  <meta name="keywords" content="undefined">
+  
+    <link rel="icon" href="/favicon.ico">
+  
+    
+  <title>白脸儿的博客</title>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.20/jquery.fancybox.min.css" />
+</head>
+
+<body>
+  <header>
+  <div class="header-container">
+    <a class='logo' href="/">
+      <span>白脸儿的博客</span>
+    </a>
+    <ul class="right-header">
+      
+        <li class="nav-item">
+          
+            <a href="/" class="item-link">首页</a>
+          
+        </li>
+      
+        <li class="nav-item">
+          
+            <a href="/about" class="item-link">关于</a>
+          
+        </li>
+      
+        <li class="nav-item">
+          
+            <a href="/archives" class="item-link">归档</a>
+          
+        </li>
+      
+    </ul>
+  </div>
+</header>
+
+  <main id='post'>
+  <div class="content">
+    <article>
+        <section class="content markdown-body">
+          <h1>无标题</h1>
+          <div class='post-meta'>
+            <i class="fa fa-calendar" aria-hidden="true"></i> <time>2018年02月08日</time>
+            
+            
+          </div>
+          <h1 id="fastlane-使用"><a href="#fastlane-使用" class="headerlink" title="fastlane 使用"></a>fastlane 使用</h1><p>fastlane 是一套工具，帮助你简化和自动化 App 发布或部署的过程，将之变成一条平直的工作流。通过 fastlane，你可以实现 持续分发（CD，一种用于自动化和改进软件分发过程的设计实践）。</p>
+<p>通过 fastlane 内置的工具，你可以创建一个由 build task （又叫做 lane）构成的有序列表，你只需要点击一个按钮就可以将 App 发布到 App 商店。你可以节省大量的时间，用于提升软件质量，或者缩短团队中发布者的发布周期。</p>
+<p>具体怎么安装就不介绍了 ，主要说下我对不同需求Fastfile文件的配置</p>
+<p>1.正式ipa包</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">desc "正式版本"</div><div class="line">  lane :release do</div><div class="line">  # 指定输出目录</div><div class="line">  gym(</div><div class="line">    scheme: "3T",</div><div class="line">    silent: true,</div><div class="line">    clean: true, </div><div class="line">    configuration: "Release",</div><div class="line">    output_directory: './buildRelease',</div><div class="line">    export_options: &#123;</div><div class="line">      method: "ad-hoc",</div><div class="line">      thinning: "&lt;none&gt;"</div><div class="line">    &#125;</div><div class="line">    )</div><div class="line">  end</div></pre></td></tr></table></figure>
+<p>执行命令 fastlane release </p>
+<p>2.测试ipa 包</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">desc "测试版本"</div><div class="line">  lane :test do</div><div class="line">  # 指定输出目录</div><div class="line">  gym(</div><div class="line">    scheme: "3T",</div><div class="line">    silent: true,</div><div class="line">    clean: true, </div><div class="line">    configuration: "Debug",</div><div class="line">    output_directory: './buildTest',</div><div class="line">    export_options: &#123;</div><div class="line">      method: "development",</div><div class="line">      thinning: "&lt;none&gt;"</div><div class="line">    &#125;</div><div class="line">    )</div><div class="line">  end</div></pre></td></tr></table></figure>
+<p>执行命令 fastlane test</p>
+<p>3.一键打包上传到AppStore</p>
+<p>这里我加了一些配置 添加了版本号和build版本</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">// 用来获取版本号和build版本</div><div class="line">def prepare_version(options)</div><div class="line">     increment_version_number(</div><div class="line">        version_number: options[:version]</div><div class="line">     )</div><div class="line"> </div><div class="line">     increment_build_number(</div><div class="line">        build_number: options[:build]</div><div class="line">     )</div><div class="line">  end</div><div class="line">  </div><div class="line">desc "appStore版本"</div><div class="line">  lane :appstore do |options|</div><div class="line">  # 增加build版本号 app 版本号</div><div class="line">  prepare_version(options)</div><div class="line">  gym(</div><div class="line">      scheme: "3T",</div><div class="line">      clean: true,</div><div class="line">      output_directory: './appstore',</div><div class="line">      configuration: "Release",</div><div class="line">      include_bitcode: false</div><div class="line">  )</div><div class="line">  deliver(</div><div class="line">      force: true,</div><div class="line">      skip_screenshots: false,  </div><div class="line">      skip_binary_upload: false, </div><div class="line">      automatic_release: false,  // 审核通过自动发布</div><div class="line">      submit_for_review: true // 上传ipa并提交审核</div><div class="line">     )</div><div class="line">  end</div></pre></td></tr></table></figure>
+<p>Deliverfile文件中的改动</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">#新版本修改记录</div><div class="line">release_notes(&#123;</div><div class="line">    'zh-Hans' =&gt; "update-note"</div><div class="line">&#125;)</div><div class="line"># 提交审核信息</div><div class="line">submission_information(&#123;    </div><div class="line">   export_compliance_encryption_updated: false,</div><div class="line">   export_compliance_uses_encryption: false,</div><div class="line">   content_rights_contains_third_party_content: false,</div><div class="line">   add_id_info_uses_idfa: false</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>执行命令 fastlane appstore version:2.4.2 build:21</p>
+<p>这样就可以指定版本号和构建版本了，修改 release_notes 来更改更新说明。</p>
+
+        </section>
+    </article>
+    
+        
+  </div>
+  <aside>
+    
+    <div class="toc-container">
+        <h1>目录</h1>
+        <div class="content">
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#fastlane-使用"><span class="toc-number">1.</span> <span class="toc-text">fastlane 使用</span></a></li></ol>
+        </div>
+    </div>
+    
+  </aside>
+</main>
+
+
+
+  <footer>
+  <div class="copyright">
+    <div>
+      &copy; 2018 | Powered by <a href="https://hexo.io" target="_blank">Hexo</a>&nbsp
+    </div>
+    <div>
+      Theme by <a href="https://github.com/lewis-geek/hexo-theme-Aath" target="_blank">Aath</a>
+    </div>
+  </div>
+</footer>
+
+
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="/lib/in-view.min.js"></script>
+<script src="/lib/lodash.min.js"></script>
+<script>
+  var isDown = true
+  var oldY = 0
+  inView.offset(50)
+
+  document.body.addEventListener('touchstart', function(){});
+  
+  window.addEventListener('scroll', _.throttle(e => {
+    var currentY = window.scrollY
+    if((oldY - currentY) < 0) {
+      isDown = true
+    } else {
+      isDown = false
+    }
+    oldY = currentY
+  }, 250))
+
+  $("article img").each(function() {
+      var strA = "<a data-fancybox='gallery' href='" + this.src + "'></a>";
+      $(this).wrapAll(strA);
+  });
+
+  $('.toc-link').each(function() {
+      var href = $(this).attr("href");
+      
+      inView(href).on('exit', () => {
+        if (isDown) {
+          handleActive(href)
+        }
+      })
+
+      inView(href).on('enter', () => {
+        if (!isDown) {
+          handleActive(href)
+        }
+      })
+
+      this.onclick = function(e) {
+        var pos = $(href).offset().top - 10;
+        $("html,body").animate({scrollTop: pos}, 300);
+        setTimeout(() => {
+          handleActive(href)
+        }, 350)
+        return false
+      }
+  })
+
+  function handleActive(href) {
+    document.querySelectorAll('.toc-link').forEach(elm => {
+      elm.classList.remove('active')
+    })
+    document.querySelector(".toc [href='"+ href +"']").classList.add('active')
+  }
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.20/jquery.fancybox.min.js"></script>
+
+
+</body>
+</html>
