@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="description" content="一个会一点点H5的菜鸟iOS开发">
+  <meta name="keywords" content="undefined">
+  
+    <link rel="icon" href="/favicon.ico">
+  
+    
+  <title>swift3.0 后台定位功能 | 白脸儿的博客</title>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.20/jquery.fancybox.min.css" />
+</head>
+
+<body>
+  <header>
+  <div class="header-container">
+    <a class='logo' href="/">
+      <span>白脸儿的博客</span>
+    </a>
+    <ul class="right-header">
+      
+        <li class="nav-item">
+          
+            <a href="/" class="item-link">首页</a>
+          
+        </li>
+      
+        <li class="nav-item">
+          
+            <a href="/about" class="item-link">关于</a>
+          
+        </li>
+      
+        <li class="nav-item">
+          
+            <a href="/archives" class="item-link">归档</a>
+          
+        </li>
+      
+    </ul>
+  </div>
+</header>
+
+  <main id='post'>
+  <div class="content">
+    <article>
+        <section class="content markdown-body">
+          <h1>swift3.0 后台定位功能</h1>
+          <div class='post-meta'>
+            <i class="fa fa-calendar" aria-hidden="true"></i> <time>2017年04月17日</time>
+            
+            
+          </div>
+          <p>公司需求后台定位，间隔五分钟后台上传坐标信息，这里主要把后台定位功能整理了一下。<br>plist 的权限设置 这里就不具体说了。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> UIKit</div><div class="line"><span class="keyword">import</span> CoreLocation</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">LocationUpdateManager</span>: <span class="title">NSObject</span>, <span class="title">CLLocationManagerDelegate</span></span>&#123;</div><div class="line">    </div><div class="line">    <span class="keyword">var</span> standardlocationManager:<span class="type">CLLocationManager</span>?</div><div class="line">    </div><div class="line">    <span class="keyword">var</span> lastTimestamp:<span class="type">NSDate</span>?</div><div class="line">    </div><div class="line">    <span class="keyword">var</span> timer: <span class="type">Timer</span>?</div><div class="line">    </div><div class="line">    <span class="keyword">static</span> <span class="keyword">let</span> sharedStandardInstance = <span class="type">LocationUpdateManager</span>()</div><div class="line">    </div><div class="line">    <span class="keyword">private</span> <span class="keyword">override</span> <span class="keyword">init</span>() &#123;</div><div class="line">        <span class="keyword">super</span>.<span class="keyword">init</span>()</div><div class="line">        <span class="keyword">self</span>.standardlocationManager = <span class="type">CLLocationManager</span>()</div><div class="line">        <span class="keyword">self</span>.standardlocationManager?.delegate = <span class="keyword">self</span></div><div class="line">        <span class="keyword">self</span>.standardlocationManager?.desiredAccuracy = kCLLocationAccuracyBest <span class="comment">// 定位精度</span></div><div class="line">        <span class="keyword">self</span>.standardlocationManager?.distanceFilter = <span class="number">100</span>  <span class="comment">// 距离筛选</span></div><div class="line">        <span class="keyword">self</span>.standardlocationManager?.pausesLocationUpdatesAutomatically = <span class="literal">false</span></div><div class="line">        </div><div class="line">        <span class="keyword">if</span> #available(iOS <span class="number">8.0</span>, *) &#123;</div><div class="line">            <span class="keyword">self</span>.standardlocationManager?.requestAlwaysAuthorization()</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">if</span> #available(iOS <span class="number">9.0</span>, *) &#123;</div><div class="line">            <span class="keyword">self</span>.standardlocationManager?.allowsBackgroundLocationUpdates = <span class="literal">true</span></div><div class="line">        &#125;</div><div class="line">        </div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">startStandardUpdatingLocation</span><span class="params">()</span></span>  &#123;</div><div class="line">        <span class="keyword">self</span>.standardlocationManager?.startUpdatingLocation()</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">stopStandardUpdatingLocation</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">self</span>.standardlocationManager?.stopUpdatingLocation()</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="comment">//定位代理函数</span></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">locationManager</span><span class="params">(<span class="number">_</span> manager: CLLocationManager, didUpdateLocations locations: [CLLocation])</span></span> &#123;</div><div class="line">        <span class="keyword">let</span> mostRecentLocation = locations.last</div><div class="line">        <span class="keyword">if</span> timer == <span class="literal">nil</span> &#123;</div><div class="line">            timer = <span class="type">Timer</span>(fireAt: <span class="type">Date</span>(), interval: <span class="number">10</span>, target: <span class="keyword">self</span>, selector: #selector(<span class="keyword">self</span>.printCurrentTime), userInfo: mostRecentLocation, repeats: <span class="literal">true</span>)</div><div class="line">            <span class="type">RunLoop</span>.current.add(timer!, forMode: .defaultRunLoopMode)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">printCurrentTime</span><span class="params">()</span></span> &#123;</div><div class="line">        </div><div class="line">        <span class="keyword">let</span> mostRecentLocation = timer?.userInfo <span class="keyword">as</span>! <span class="type">CLLocation</span></div><div class="line">        </div><div class="line">        <span class="built_in">print</span>(<span class="string">"经度\(mostRecentLocation.coordinate.latitude)"</span>)</div><div class="line">        <span class="built_in">print</span>(<span class="string">"纬度\(mostRecentLocation.coordinate.longitude)"</span>)</div><div class="line">        </div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>最后就是关于后台定位审核问题，如果只是把定位数据传给后台是会被苹果拒绝的，需要把定位得坐标展现在地图上，或者用个tableview把定位得信息列出来。</p>
+<p>另外需要在App描述中添加如下提示：</p>
+<p>【温馨提示】</p>
+<p>本应用的实时规划路线导航功能会持续使用 GPS 定位服务，切换至后台时仍会继续，相比其他操作会消耗更多电量，并影响电视续航时间。</p>
+
+        </section>
+    </article>
+    
+        
+  </div>
+  <aside>
+    
+  </aside>
+</main>
+
+
+
+  <footer>
+  <div class="copyright">
+    <div>
+      &copy; 2018 | Powered by <a href="https://hexo.io" target="_blank">Hexo</a>&nbsp
+    </div>
+    <div>
+      Theme by <a href="https://github.com/lewis-geek/hexo-theme-Aath" target="_blank">Aath</a>
+    </div>
+  </div>
+</footer>
+
+
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="/lib/in-view.min.js"></script>
+<script src="/lib/lodash.min.js"></script>
+<script>
+  var isDown = true
+  var oldY = 0
+  inView.offset(50)
+
+  document.body.addEventListener('touchstart', function(){});
+  
+  window.addEventListener('scroll', _.throttle(e => {
+    var currentY = window.scrollY
+    if((oldY - currentY) < 0) {
+      isDown = true
+    } else {
+      isDown = false
+    }
+    oldY = currentY
+  }, 250))
+
+  $("article img").each(function() {
+      var strA = "<a data-fancybox='gallery' href='" + this.src + "'></a>";
+      $(this).wrapAll(strA);
+  });
+
+  $('.toc-link').each(function() {
+      var href = $(this).attr("href");
+      
+      inView(href).on('exit', () => {
+        if (isDown) {
+          handleActive(href)
+        }
+      })
+
+      inView(href).on('enter', () => {
+        if (!isDown) {
+          handleActive(href)
+        }
+      })
+
+      this.onclick = function(e) {
+        var pos = $(href).offset().top - 10;
+        $("html,body").animate({scrollTop: pos}, 300);
+        setTimeout(() => {
+          handleActive(href)
+        }, 350)
+        return false
+      }
+  })
+
+  function handleActive(href) {
+    document.querySelectorAll('.toc-link').forEach(elm => {
+      elm.classList.remove('active')
+    })
+    document.querySelector(".toc [href='"+ href +"']").classList.add('active')
+  }
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.20/jquery.fancybox.min.js"></script>
+
+
+</body>
+</html>
